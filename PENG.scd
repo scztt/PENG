@@ -6,52 +6,6 @@ State(\peng).autoEnvirWindow = true;
 // INIT
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 State(\peng).initActions.add({
-	/*~eventWindow = Window().layout_(VLayout(nil)).front();
-
-	~eventList = List();
-
-	~eventUpdate = {
-		var toRemove = List();
-		~eventList.do({
-			|e|
-			if (e[\view].isNil) {
-				e[\view] = UserView().maxHeight_(40).layout_(VLayout(
-					StaticText().string_("% [%]".format(e[\instrument], e[\node]))
-				));
-				e[\view].drawFunc_({
-					|v|
-					var rect, time, amt, width = v.bounds.width - 1.5;
-					time = AppClock.seconds;
-					amt = min(1, (time - e[\start]) / (e[\end] - e[\start]));
-					rect = v.bounds.moveTo(0, 0).width_(amt * width);
-					Pen.fillColor = if (amt < 1) { Color.green.alpha_(0.4) } { Color.green.alpha_(0.1) };
-					Pen.strokeColor = Color.grey(0.5);
-					Pen.fillRect(rect);
-					Pen.strokeRect(rect);
-				});
-				~eventWindow.layout.insert(e[\view], 0);
-			};
-
-			if (AppClock.seconds > (e[\end] + 5)) {
-				toRemove.add(e);
-				e[\view].remove();
-			};
-		});
-
-		~eventList.removeAll(toRemove);
-		//~eventWindow.refresh();
-	};
-
-	r = Routine({
-		inf.do({
-			~eventUpdate.();
-			(1/60).wait;
-		});
-	}).play(AppClock);
-
-	~eventWindow.onClose_({ r.stop });
-*/
-
 	SynthDef(\cymbal, {
 		arg out = 0, amp = 0.1, loDecay = 8, hiDecay = 15;
 		var env, lodriver, locutoffenv, hidriver, hicutoffenv, freqs, res, thwack, gdrive, sig, drive;
