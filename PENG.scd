@@ -16,7 +16,7 @@ State(\peng).initActions.add({
 		sig = HPF.ar(sig, 15000) * env * amp;
 
 		Out.ar(out, sig);
-	}).add;
+	}).addReplace;
 
 
 	SynthDef( \peng, {
