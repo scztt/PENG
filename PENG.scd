@@ -118,8 +118,8 @@ State(\peng).initActions.add({
 	}).addReplace;
 	SynthDef(\driver, {
 		arg out = 0, pengOut = 0, cymbalIn, gate = 0, amp = 1, freq = 6300, rate = 8, decay = 0.9, double = 0, noiseAmt = 0.2,
-		feedAmt = 0.7, delayLevel = 0, hiss = 0, hissVol = 0;
-		var sig, imp, multiImp, cymbalGate, multiAmt, delayLevels, delaySig, delayIn, mixedSig, hissEnv, hissSig, driverEnv, hissAmpEnv;
+		feedAmt = 0.7, delayLevel = 0, hiss = 0, hissVol = 0, hissPulseAmt = 0.3;
+		var sig, imp, multiImp, cymbalGate, multiAmt, delayLevels, delaySig, delayIn, mixedSig, hissEnv, hissSig, driverEnv, hissAmpEnv, hissBuild, hissPulse;
 
 		noiseAmt = noiseAmt * LFNoise2.kr(0.6).range(0.95, 1.05);
 		freq = freq.lag(0.2);
@@ -128,6 +128,7 @@ State(\peng).initActions.add({
 
 		imp = Decay.ar(imp, LFNoise2.kr(1).range(decay * 0.2, decay));
 		//imp = RLPF.ar(imp, freq, 1000 / freq);
+		freq = freq * 4;
 		imp = BLowPass4.ar(imp, freq, 1000 / freq);
 		multiAmt = max(0, double - 0.5) * 2;
 		multiImp = Mix(DelayN.ar(imp, 0.3, 1 / [2, 3, 5, 8, 9, 12, 14, 22, 25] * multiAmt)) * (1 / 9);
@@ -148,18 +149,26 @@ State(\peng).initActions.add({
 
 		sig = sig + HPF.ar(CombC.ar(sig * LFNoise2.kr(0.1).pow(4), 3, 2.1, 3), 700);
 
-		hissEnv = EnvGen.kr(Env([0, 1, 1, 0], [0.03, 0.01, 0.001], curve: \sin, releaseNode: 2), gate: hiss > 0);
-		hissAmpEnv = EnvGen.kr(Env([0.0001, 0.05,  1, 0.00001], [0.1, 1], \exp, releaseNode: 2), gate: hiss > 0, timeScale: 5 + (hissVol * 30));
-		driverEnv = EnvGen.kr(Env([1, 0.05, 0.05, 1], [0.3, 0.3, 0.001], curve: \sin), gate: (1 - hiss) > 0);
+		hissEnv = EnvGen.kr(Env([0, 1, 1, 0], [0.3, 0.01, 0.001], curve: \sin, releaseNode: 2), gate: hiss > 0);
+		hissAmpEnv = EnvGen.kr(Env([0.0001, 0.05,  1, 0.00001], [0.01, 1], \exp, releaseNode: 2), gate: hiss > 0, timeScale: 5 + (hissVol * 30));
+		//driverEnv = EnvGen.kr(Env([1, 0.05, 0.05, 1], [0.3, 0.3, 0.001], curve: \sin), gate: (1 - hiss) > 0);
+		driverEnv = 1;
 
 		hiss = WhiteNoise.ar(0.8) + (WhiteNoise.ar(0.2) * PinkNoise.ar(0.2));
 
 		hiss = Mix(hiss);
-		hiss = HPF.ar(hiss, 10000 - (hissAmpEnv * 6000)) * (1 + (0.5 * Decay.ar(Dust.ar(hissAmpEnv * 30), 0.06)));
-		hiss = hiss + LPF.ar(LFSaw.ar(45 + [-20, 0, 20, 40, 60] - 8).sum, 100 + (hissAmpEnv * 400));
-		hiss = hiss * (hissVol + 0.5) * hissAmpEnv;
+		hissBuild = HPF.ar(hiss, 10000 - (hissAmpEnv * 6000)) * (1 + (0.5 * Decay.ar(Dust.ar(hissAmpEnv * 30), 0.06)));
+		hissPulse = HPF.ar(hiss, 10000 - (0.5 * 6000)) * (1 + (0.5 * Decay.ar(Dust.ar(0.1 * 30), 0.06)));
 
-		sig = XFade2.ar(sig * driverEnv, hiss, hissEnv.linlin(0, 1, -1, 1));
+		hissBuild = hissBuild + LPF.ar(VarSaw.ar(45 + [-20, 0, 20, 40, 60, 6000] - 8, 0, noiseAmt).sum, 100 + (hissAmpEnv * 1200));
+		hissPulse = hissPulse + LPF.ar(VarSaw.ar(45 + [-20, 0, 20, 30, 60, 80, 120] - 8, 0, noiseAmt).sum, 300 + (6000 * imp));
+
+		hissBuild = (hissBuild * (hissVol + 0.5) * hissAmpEnv);
+		hissPulse = (hissPulse * imp * noiseAmt);
+		//hiss = hiss.tanh;
+
+		sig = sig + hissPulse;
+		sig = XFade2.ar(sig * driverEnv, hissBuild, hissEnv.linlin(0, 1, -1, 1));
 
 		Out.ar(pengOut, sig * [1, 1]);
 
