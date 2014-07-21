@@ -363,7 +363,7 @@ State(\peng).initActions.add({
 		)),
 	];
 
-	Pdef(\pengGroup, (\group: ~pengGroup));
+	Pdef(\pengGroup, Pbind(\group, ~pengGroup));
 
 	/////////////////////////////
 	// States
