@@ -160,8 +160,7 @@ State(\peng).initActions.add({
 		].flop.flatten;
 
 		Out.ar(0, sig);
-	}).add;
-
+	}).addReplace;
 	SynthDef(\driver, {
 		arg out = 0, pengOut = 0, cymbalIn, gate = 0, amp = 1, freq = 6300, rate = 8, decay = 0.9, double = 0, noiseAmt = 0.2,
 		feedAmt = 0.7, delayLevel = 0, hiss = 0, hissVol = 0;
@@ -233,7 +232,7 @@ State(\peng).initActions.add({
 		mixedSig = mixedSig * EnvGen.kr(Env([0, 1, 1, 0], [0.1, 1, 3], releaseNode:2), gate:gate, doneAction:2);
 
 		Out.ar(out, mixedSig);
-	}).add();
+	}).addReplace;
 
 	~lc.notNil.if({ ~lc.free });
 
