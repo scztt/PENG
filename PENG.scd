@@ -199,7 +199,6 @@ State(\peng).initActions.add({
 
 		hiss = WhiteNoise.ar(0.8) + (WhiteNoise.ar(0.2) * PinkNoise.ar(0.2));
 
-		//hiss = hiss * 20.collect({ LPF.ar(LFPulse.ar(LFNoise2.ar(Rand(1, 3)).range(8, 15)), 800) });
 		hiss = Mix(hiss);
 		hiss = HPF.ar(hiss, 10000 - (hissAmpEnv * 6000)) * (1 + (0.5 * Decay.ar(Dust.ar(hissAmpEnv * 30), 0.06)));
 		hiss = hiss + LPF.ar(LFSaw.ar(45 + [-20, 0, 20, 40, 60] - 8).sum, 100 + (hissAmpEnv * 400));
