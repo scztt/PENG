@@ -22,7 +22,7 @@ State(\peng).initActions.add({
 	SynthDef( \peng, {
 		arg amp = 0.3, gate = 1, bellFreq = 600, input = 10,
 		noiseLPF = 50, decayAmt = 3, lpf = 40, dur = 8, noiseAmt = 0.9, delayAmt = 0.1,
-		whiteAmt = 0.1, forward = 0;
+		whiteAmt = 0.1, forward = 0, combDecay;
 
 		var in, impulse, decay, noise, freq, freqs, amps, decays, verbSig, sig,
 		delayTimes, delayAmts, delaySpike, env, sigForComb, noiseLPFadjust, positionEnv, positionWidth;
@@ -38,7 +38,7 @@ State(\peng).initActions.add({
 			((FreqShift.ar(in * env, -60) * LPF.ar(PinkNoise.ar(noiseAmt), lpf * 6))),
 			speed: 0.1
 		));
-		noiseLPFadjust = noiseLPF.linlin(10, 1000, 0.dbamp, -6.dbamp);
+		noiseLPFadjust = noiseLPF.explin(10, 1000, 0.dbamp, -6.dbamp);
 
 		in = LeakDC.ar(in + LPF.ar(in.pow(2), noiseLPF, 5)).tanh;
 		Amplitude.ar(in).round(0.1);
@@ -61,9 +61,10 @@ State(\peng).initActions.add({
 		sig = LeakDC.ar(sig);
 
 		sigForComb = sig * env;
+		combDecay = bellFreq.explin(50, 2000, 0.4, 0.05);
 		sig = sig + [
-			CombC.ar(in * sigForComb, 0.4, (bellFreq * [1, 2, 3]).reciprocal, 0.3).sum,
-			CombC.ar(in * sigForComb, 0.4, (bellFreq * [1.001, 2.0032, 3.0104]).reciprocal, 0.31).sum;
+			CombC.ar(in * sigForComb, 0.4, (bellFreq * [1 - 0.012, 2 - 0.021, 3 - 0.006]).reciprocal, combDecay.neg).sum,
+			CombC.ar(in * sigForComb, 0.4, (bellFreq * [1.001, 2.0032, 3.0104]).reciprocal, combDecay).sum;
 		];
 		sig = sig + [
 			CombC.ar(sigForComb, 0.4, [0.1,0.2,0.3], 0.2).sum / 3,
@@ -92,7 +93,7 @@ State(\peng).initActions.add({
 
 		// delaySpike
 		delaySpike = LagUD.ar(Trig1.ar(LFNoise2.ar(6).range(0, 1) - delayAmt, 0.1), 0.01, 1.7);
-		delayTimes = [0.497, 1, 2, 3, 4, 5] * (4 / bellFreq);
+		delayTimes = [0.497, 1, 2, 3, 4, 5] * Rand(25, 30);
 		delayAmts = [delaySpike.linlin(0, 1, 1, 0.15)] ++ (delaySpike.linlin(0, 1, 0, 0.65) ! 5);
 
 		sig = sig + (0.4 * [
