@@ -341,52 +341,52 @@ State(\peng).initActions.add({
 
 		// 2 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteA) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteA)).play;
 		}),
 
 		// 2 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteB) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteB)).play;
 		}),
 
 		// 3 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteC) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <>  Pdef(\noteC)).play;
 		}),
 
 		// 4 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteD) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteD)).play;
 		}),
 
 		// 5 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteE) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteE)).play;
 		}),
 
 		// 6 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteF) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteF)).play;
 		}),
 
 		// 7 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteG) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteG)).play;
 		}),
 
 		// 8 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteH) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteH)).play;
 		}),
 
 		// 9 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteI) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteI)).play;
 		}),
 
 		// 10 ////////////////////////////
 		e({
-			Pdef(\mainPat, Pdef(\noteJ) <> Pdef(\pengGroup) <> Pdef(\peng)).play;
+			Pdef(\mainPat, Pdef(\pengGroup) <> Pdef(\peng) <> Pdef(\noteJ)).play;
 		}),
 	];
 
