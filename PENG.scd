@@ -161,7 +161,7 @@ State(\peng).initActions.add({
 		hissPulse = HPF.ar(hiss, 10000 - (0.5 * 6000)) * (1 + (0.5 * Decay.ar(Dust.ar(0.1 * 30), 0.06)));
 
 		hissBuild = hissBuild + LPF.ar(VarSaw.ar(45 + [-20, 0, 20, 40, 60, 6000] - 8, 0, noiseAmt).sum, 100 + (hissAmpEnv * 1200));
-		hissPulse = hissPulse + LPF.ar(VarSaw.ar(45 + [-20, 0, 20, 30, 60, 80, 120] - 8, 0, noiseAmt).sum, 300 + (6000 * imp));
+//		hissPulse = hissPulse + LPF.ar(VarSaw.ar(45 + [-20, 0, 20, 30, 60, 80, 120] - 8, 0, noiseAmt).sum, 300 + (6000 * imp));
 
 		hissBuild = (hissBuild * (hissVol + 0.5) * hissAmpEnv);
 		hissPulse = (hissPulse * imp * noiseAmt);
