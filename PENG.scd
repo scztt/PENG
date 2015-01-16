@@ -229,7 +229,7 @@ State(\peng).initActions.add({
 		~driverAmp = 		CV(\amp.asSpec),
 		~driverFreq = 		CV(ControlSpec(20, 5000, warp: \exp, default: 1000)),
 		~driverDecay = 		CV(ControlSpec(0.05, 1.5, warp: \exp, default: 0.9)),
-		~driverNoiseAmt = 	CV(ControlSpec(0, 1, default: 0)),
+		~driverNoiseAmt = 	CV(ControlSpec(0, 1, warp:4, default: 0)),
 		~driverDouble = 	CV(ControlSpec(0, 1, default: 0)),
 		~driverDouble = 	CV(ControlSpec(0, 1, default: 0)),
 		~driverDelayLevel = CV(ControlSpec(0, 0.5, default: 0)),
