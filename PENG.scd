@@ -106,13 +106,18 @@ State(\peng).initActions.add({
 		sig = LeakDC.ar(sig * amp);
 
 		// Panning
-		positionEnv = EnvGen.kr(Env([1, 0.4, 0.4 - (forward * 0.4)], [0.35, 0.65]), timeScale: dur);
-		positionWidth = forward + 2.5;
 
-		sig = [
-			PanArray.ar(4, sig[0], positionEnv, 1, positionWidth),
-			PanArray.ar(4, sig[1], positionEnv, 1, positionWidth)
-		].flop.flatten;
+		// 8 channel
+		// positionEnv = EnvGen.kr(Env([1, 0.4, 0.4 - (forward * 0.4)], [0.35, 0.65]), timeScale: dur);
+		// positionWidth = forward + 2.5;
+		//
+		// sig = [
+		// 	PanArray.ar(4, sig[0], positionEnv, 1, positionWidth),
+		// 	PanArray.ar(4, sig[1], positionEnv, 1, positionWidth)
+		// ].flop.flatten;
+
+		// stereo
+		sig = sig;
 
 		Out.ar(0, sig);
 	}).addReplace;
