@@ -205,10 +205,8 @@ State(\peng).initActions.add({
 	~lc.notNil.if({ ~lc.free });
 	~qn.notNil.if({ ~qn.free });
 
-	~resources = SparseArray();
 	~resources.addAll([
 		~lc = LCDevice(),
-		~lc.knobs.do(_.ringStyle_(\fill));
 		~qn = QuNeo(),
 		~bus = Bus.audio(s, 2),
 		~cymbalBus = Bus.audio(s, 2),
