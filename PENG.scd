@@ -198,11 +198,13 @@ State(\peng).initActions.add({
 	}).addReplace;
 
 	~lc.notNil.if({ ~lc.free });
+	~qn.notNil.if({ ~qn.free });
 
 	~resources = SparseArray();
 	~resources.addAll([
 		~lc = LCDevice(),
 		~lc.knobs.do(_.ringStyle_(\fill));
+		~qn = QuNeo(),
 		~bus = Bus.audio(s, 2),
 		~cymbalBus = Bus.audio(s, 2),
 		~pengGroup = Group(s),
@@ -402,6 +404,7 @@ State(\peng).freeActions.add({
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 State(\peng).startActions.add({
 
+	~qn.connect();
 	[
 		\amp, ~pengAmp,
 		\decayAmt, ~pengDecayAmt,
@@ -425,6 +428,10 @@ State(\peng).startActions.add({
 		~patternButtons[i].buttonOnActions.add({
 			Log(\peng, "state on %: %".format(i, state));
 			state.value();
+		});
+		~qn.pads[i].noteOnActions.add({
+			Log(\peng, "state on %: %".format(i, state));
+			state.value()
 		});
 	});
 
