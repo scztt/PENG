@@ -50,7 +50,7 @@ State(\peng).initActions.add({
 		noise = in + (decay * WhiteNoise.ar(whiteAmt));
 		noise = LeakDC.ar(decay + (decay * noise));
 
-		freqs = [0.56, 0.56, 0.92, 0.92, 1.19, 1.7, 2.0, 2.74, 3, 3.76, 4.07, 5.3] * freq;
+		freqs = [0.56, 0.56, 0.92, 0.92, 1.19, 1.7, 2.0, 2.74, 3, 3.76, 4.07, 5.3] * (freq / (freq / 800).ceil);
 		freqs[1] = freqs[1] + 1; freqs[3] = freqs[3] + 1.7;
 		amps = [1, 0.67, 1.35, 1.8, 2.67, 1.67, 1.46, 1.33, 1.33, 1.0, 1.33, 0.3];
 		decays = [1, 0.9, 0.65, 0.55, 0.325, 0.35, 0.25, 0.2, 0.15, 0.1, 0.075, 0.2];
