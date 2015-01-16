@@ -268,68 +268,81 @@ State(\peng).initActions.add({
 		nil,
 
 		Pdef(\noteA, Pbind(
-			\bellFreq, Pseq([
-				4, 4, 4, 4, 4, 4, 2, 2,
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -1)), inf)
-		)),
+			\bellBase, Pseq([
+				[ 0, -12, -24], [0, -12], [0, -12], [0, -12], [0, -4], [0, -4]
+//				[-12, 0]
+			], inf)
+		))
+		,
 
 		Pdef(\noteB, Pbind(
-			\bellFreq, Pseq([
-				[4, 6.3], 4, 4, [4, 8], 4, 4, [2, 8], 2, 2,   // 2,8 is off?
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -1)), inf)
+			\bellBase, Pseq([
+				4, 4, 0, 0, -4, -4,
+			], inf)
 		)),
 
 		Pdef(\noteC, Pbind(
-			\bellFreq, Pseq([
-				[4, 8], 4, [4, 10], 4, [2, 10], 2, 2, [2, 8], 8,
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -1)), inf)
+			\bellBase, Pseq([
+				//		[4, 8], 4, [4, 10], 4, [2, 10], 2, 2, [2, 8], 8,
+				[4, 10], 6, 6, 4, [4, 10], 6, 6, [6, 14],
+			], inf)
 		)),
 
 		Pdef(\noteD, Pbind(
-			\bellFreq, Pseq([
-				[0, 6, 11], [6, 11], 11, [-2, 11], [-2, 11], [-3, 11], [-3, 11]  // bad at end?
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -1)), inf)
+			\bellBase, Pseq([
+				//[0, 6, 11], [6, 11], 11, [-2, 11], [-2, 11], [-3, 11], [-3, 11]  // bad at end?
+				[0, 6, 11], [4, 10], 6, 6, 4, -1, [4, 10], 6, 6, [6, 14],
+
+			], inf)
 		)),
 
-
 		Pdef(\noteE, Pbind(
-			\bellFreq, Pseq([
-				[-3, 11], [11, 16, 22], [11, 16]   // ???
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)), inf)
+			\bellBase, Pseq([
+				//[-3, 11], [11, 16, 22], [11, 16]   // ???
+				[-3, 1, 15], [4, 15], 6, [6, 14], 4, [-1, 15], [4, 10], 6, 6, [6, 14],
+			], inf)
 		)),
 
 		Pdef(\noteF, Pbind(
-			\bellFreq, Pseq([
+			\bellBase, Pseq([
 				11, 11, 11, 11
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)).post, inf)
+			], inf)
 		)),
 
 		Pdef(\noteG, Pbind(
-			\bellFreq, Pseq([
+			\bellBase, Pseq([
 				[11, 35], [11, 34.96], [11, 34.93], [11, 34.8], [11, 34], [11, 33.8], [11, 31.78]  // high too loud
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)).post, inf)
+			], inf)
 		)),
 
 		Pdef(\noteH, Pbind(
-			\bellFreq, Pseq([
+			\bellBase, Pseq([
 				[11, 35, 29], 	 [11, 34.96, 29.1], [11, 34.91, 29.13], [11, 34.8, 29.5],
 				[11, 34, 29.53], [11, 33.8, 29.8],  [11, 33.78, 30.1],  [11, 33.5, 30.5]
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)).post, inf)
+			], inf)
 		)),
 
 		Pdef(\noteI, Pbind(
-			\bellFreq, Pseq([
+			\bellBase, Pseq([
 				[15, 34, 28], [15, 34, 28], [16, 34, 27], [15, 34, 27], [15, 34, 27], [15, 34, 27],
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)).post, inf)
+			], inf)
 		)),
 
 		Pdef(\noteJ, Pbind(
-			\bellFreq, Pseq([
+			\bellBase, Pseq([
 				[11, 35], [11, 34.96]
-			].collect(Scale.partch_o2.degreeToFreq(_ , 98, -2)).post, inf)
+			], inf)
 		)),
 	];
 
+	Pdef(\pengNoteBase, Pbind(
+		\amp, 0,
+		\dur, 2,
+		\legato, 1.5,
+		\detune, 300,
+		\latency, false,
+		\freq, Pkey(\bellFreq, inf)
+	));
 	Pdef(\pengGroup, Pbind(\group, ~pengGroup));
 
 	/////////////////////////////
