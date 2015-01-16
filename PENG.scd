@@ -343,6 +343,21 @@ State(\peng).initActions.add({
 		\latency, false,
 		\freq, Pkey(\bellFreq, inf)
 	));
+
+	Log(\peng).level = \info;
+	~patterns.size.do {
+		|i|
+		var playing, name;
+		~qn.pads[i].connect().toggle_(true);
+		~qn.pads[i].noteOnActions.add({
+			Log(\peng).info("Note on: %", i);
+			// Pdef(\pengNote,
+			// 	Pdef(\pengNoteBase) <> ~patterns[i]
+			// ).play;
+		});
+	};
+	CVModalGroup(*(~qn.pads.collect(_.noteCV)));
+
 	Pdef(\pengGroup, Pbind(\group, ~pengGroup));
 
 	/////////////////////////////
