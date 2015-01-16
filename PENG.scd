@@ -246,8 +246,8 @@ State(\peng).initActions.add({
 		~pengForward = 		CV(ControlSpec(0, 1, default: 0.1)),
 	];
 
-	~hissVol = CV(ControlSpec(0, 1, \db));
-	~hissTrig = CV(ControlSpec(0, 1));
+	~hissVol = 				CV(ControlSpec(0, 1, \db));
+	~hissTrig = 			CV(ControlSpec(0, 1));
 
 	Pdef(\peng, Pbind(
 		\instrument, \peng,
