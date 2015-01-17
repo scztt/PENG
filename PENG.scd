@@ -6,6 +6,8 @@ State(\peng).autoEnvirWindow = true;
 // INIT
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 State(\peng).initActions.add({
+	s.latency = 0.05;
+
 	SynthDef(\cymbal, {
 		arg out = 0, amp = 0.1, loDecay = 8, hiDecay = 15;
 		var env, lodriver, locutoffenv, hidriver, hicutoffenv, freqs, res, thwack, gdrive, sig, drive;
@@ -154,7 +156,7 @@ State(\peng).initActions.add({
 
 		sig = sig + HPF.ar(CombC.ar(sig * LFNoise2.kr(0.1).pow(4), 3, 2.1, 3), 700);
 
-		hissEnv = EnvGen.kr(Env([0, 1, 1, 0], [0.3, 0.01, 0.001], curve: \sin, releaseNode: 2), gate: hiss > 0);
+		hissEnv = EnvGen.kr(Env([0, 1, 1, 0], [0.01, 0.01, 0.001], curve: \sin, releaseNode: 2), gate: hiss > 0);
 		hissAmpEnv = EnvGen.kr(Env([0.0001, 0.05,  1, 0.00001], [0.01, 1], \exp, releaseNode: 2), gate: hiss > 0, timeScale: 5 + (hissVol * 30));
 		//driverEnv = EnvGen.kr(Env([1, 0.05, 0.05, 1], [0.3, 0.3, 0.001], curve: \sin), gate: (1 - hiss) > 0);
 		driverEnv = 1;
