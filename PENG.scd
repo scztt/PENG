@@ -215,6 +215,8 @@ State(\peng).initActions.add({
 		~pengGroup = Group(s),
 	]);
 
+	~lc.knobs.do(_.ringStyle_(\fill));
+
 	// Play button
 	~playButton = ~lc.buttons[4].default;
 	~playButton.toggle = true;
