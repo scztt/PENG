@@ -252,18 +252,21 @@ State(\peng).initActions.add({
 	~hissTrig = 			CV(ControlSpec(0, 1));
 
 	Pdef(\peng, Pbind(
-		\instrument, \peng,
-		\input, ~bus.index,
-		\bellFreq, Pseq([0, 0, 4, 9, 0, [0, 8], 5, 7, 9, 9].collect(Scale.partch_o3.degreeToFreq(_ , 98, 0)), inf),
-		\dur, 16,
-		\legato, 1.5,
-		\amp, ~pengAmp,
-		\noiseLPF, ~pengNoiseLPF,
-		\lpf, ~pengLPF,
-		\decayAmt, ~pengDecayAmt,
-		\noiseAmt, ~pengNoiseAmt,
-		\delayAmt, ~pengDelayAmt,
-		\forward, ~pengForward,
+		\instrument, 		\peng,
+		\input, 			~bus.index,
+		\bellBase, 			Pkey(\bellBase, inf).trace,
+		\bellOct, 			1,
+		\dur, 				4,
+		\legato, 			1.5,
+		\amp, 				~pengAmp,
+		\noiseLPF, 			~pengNoiseLPF,
+		\lpf, 				~pengLPF,
+		\decayAmt, 			~pengDecayAmt,
+		\noiseAmt, 			~pengNoiseAmt,
+		\delayAmt, 			~pengDelayAmt,
+		\forward, 			~pengForward,
+		\bellFreqDummy,		Pkey(\bellBase, inf) + Pkey(\bellOct, inf),
+		\bellFreq, 			Pfunc({ |e| Scale.partch_o3.degreeToFreq(e[\bellBase], 98, e[\bellOct]) }),
 	));
 
 	~patterns = [
